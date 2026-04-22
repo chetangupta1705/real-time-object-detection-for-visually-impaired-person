@@ -1,0 +1,14 @@
+-m-01g317 Chair
+-m-01bqk0 Table
+-m-01c648 Door
+-m-01d40f Window
+-m-01dxs Laptop
+-m-01mzpv Bottle
+-m-01s55n Cup
+-m-01y9k5 Backpack
+-m-01ww8y Bucket
+-m-0199g Bed
+-m-01lynh Sofa
+-m-02522 Dustbin
+-m-04dr76w Switch
+-m-03bt1vf Stairs

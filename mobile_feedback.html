@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Object Detection for visually Impaired person</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #0f0;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    .info {
+      font-size: 1.3em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔊 Blind Assistance Voice Feedback</h1>
+  <button id="startBtn">▶️ Start Voice Feedback</button>
+  <p class="info">Tap the button above to begin voice feedback.</p>
+
+  <script>
+  const SERVER_URL = "http://10.240.167.33                                                                                                    :5000/result"; // ✅ keep this IP
+  let lastSpoken = "";
+  let voiceEnabled = false;
+  let lastTime = 0;
+
+  document.getElementById("startBtn").addEventListener("click", () => {
+    voiceEnabled = true;
+    document.getElementById("startBtn").style.display = "none";
+    document.querySelector(".info").textContent = "Voice feedback started...";
+    speak("Voice feedback activated. Please wait for detection.");
+    fetchDetection();
+    setInterval(fetchDetection, 2000);
+  });
+
+  async function fetchDetection() {
+    try {
+      const res = await fetch(SERVER_URL);
+      const data = await res.json();
+      const object = data.object;
+      const distance = data.distance;
+      const now = Date.now();
+
+      if (object && object !== "none") {
+        const message = `${object} detected approximately ${distance} centimeters ahead`;
+        document.querySelector(".info").textContent = message;
+
+        if (voiceEnabled && message !== lastSpoken && (now - lastTime > 3000)) {
+          speak(message);
+          lastSpoken = message;
+          lastTime = now;
+        }
+      } else {
+        document.querySelector(".info").textContent = "No objects detected...";
+      }
+    } catch (err) {
+      document.querySelector(".info").textContent = "❌ Cannot connect to server.";
+    }
+  }
+
+  function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.pitch = 1;
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
+  }
+</script>
+
+</body>
+
+</html>
