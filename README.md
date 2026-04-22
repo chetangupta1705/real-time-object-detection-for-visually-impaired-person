@@ -42,7 +42,11 @@ python main.py
 ---
 
 ## 📸 Output Screenshots
-(You will add images here later)
+## 📸 Output Screenshots
+
+![Output1](outputs/output1.jpg)
+
+![Output2](outputs/output2.jpg)
 
 ---
 
@@ -66,6 +70,9 @@ Due to size limitations, model is not uploaded.
 - Smart monitoring systems  
 
 ---
+
+## 📌 Description
+This project is an AI-based assistive system designed for visually impaired individuals. It uses real-time object detection with SSD MobileNet and provides voice feedback using text-to-speech technology.
 
 ## 👨‍💻 Author
 Chetan Gupta
